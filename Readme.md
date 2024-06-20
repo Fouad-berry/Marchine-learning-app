@@ -65,8 +65,9 @@ Access the application at `http://127.0.0.1:8000`.
 
 ### Openapi api key 
 Go to the .env files and paste your openai key to use the chatbot
-
+```
 OPENAI_API_KEY=
+```
 
 ## Language Switching
 
