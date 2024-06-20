@@ -75,10 +75,10 @@ OPENAI_API_KEY=
 1. Open `settings.py` and add the new language code to `LANGUAGES`.
 
 ```python
+LANGUAGE_CODE = 'en'
 LANGUAGES = [
-    ('en', 'English'),
-    ('fr', 'Français'),
-    # Add new languages here
+    ('en', _('English')),
+    ('fr', _('French')),
 ]
 ```
 
