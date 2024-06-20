@@ -1,14 +1,18 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 
 {% load i18n %}
 
 {% block content %}
 
-<div class="container">
-    
-    <h2>{% trans "Welcome to the technical test" %}</h2>
-
-    <h3>{% trans "Articles" %}</h3>
+<!DOCTYPE html>
+<html lang="en" dir="{% trans 'dir' %}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Article List" %}</title>
+</head>
+<body>
+    <div class="container">
+    <h1>{% trans "Articles" %}</h1>
     <ul>
         {% for article in articles %}
             <li>
@@ -24,7 +28,8 @@
     {% else %}
         <p>{% trans "No articles available. Good morning!" %}</p>
     {% endif %}
-</div>
-
+    </div>
+</body>
+</html>
 
 {% endblock %}

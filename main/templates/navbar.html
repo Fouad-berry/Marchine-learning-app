@@ -1,0 +1,68 @@
+{% load i18n %}
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <!-- Lien de retour à la page d'accueil avec support de traduction -->
+            <a class="navbar-brand" href="{% url 'index' %}">{% trans "Test " %}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <!-- Lien vers la page du chatbot avec support de traduction -->
+                        <a class="nav-link" aria-current="page" href="{% url 'chatbot' %}">{% trans 'Go to the Chatbot' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Lien vers la liste des articles avec support de traduction -->
+                        <a class="nav-link" href="{% url 'article_list' %}">{% trans 'Article List' %}</a>
+                    </li>
+
+                    <div class="dropdown me-auto">
+                        <!-- Obtenir la langue actuelle -->
+                        {% get_current_language as CURRENT_LANGUAGE %}
+                        <!-- Obtenir les langues disponibles -->
+                        {% get_available_languages as AVAILABLE_LANGUAGES %}
+                        <!-- Obtenir les informations sur les langues disponibles -->
+                        {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+                    
+                        <!-- Bouton pour changer la langue -->
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% trans 'Change Language' %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- Boucle pour afficher les langues disponibles -->
+                            {% for language in languages %}
+                                <li>
+                                    <!-- Lien pour changer de langue avec indication de la langue active -->
+                                    <a class="dropdown-item {% if language.code == CURRENT_LANGUAGE %}active{% endif %}" href="#" onclick="changeLanguage('{{ language.code }}', '{{ request.path }}')">{{ language.name_local }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Script pour changer la langue de l'URL -->
+    <script>
+        function changeLanguage(languageCode, currentPath) {
+            // Détecter et enlever le segment de langue existant
+            var pathSegments = currentPath.split('/').filter(Boolean); // Diviser en segments et filtrer les segments vides
+            var languages = ['en', 'fr']; // Liste des langues disponibles
+        
+            // Si le premier segment est une langue, le retirer
+            if (languages.includes(pathSegments[0])) {
+                pathSegments.shift();
+            }
+        
+            // Construire l'URL avec la langue sélectionnée
+            var newPath = '/' + languageCode + '/' + pathSegments.join('/');
+        
+            // Rediriger l'utilisateur vers la nouvelle URL avec la langue choisie
+            window.location.href = newPath;
+        }
+    </script>                
+</header>

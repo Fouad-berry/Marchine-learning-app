@@ -1,0 +1,50 @@
+{% include 'base.html' %}
+
+{% load i18n %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/styles.css' %}">
+    <script>
+        // Fonction pour défiler vers la réponse la plus récente
+        function scrollToLastResponse() {
+            var lastResponse = document.querySelector(".last-response");
+            if (lastResponse) {
+                lastResponse.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Appel de la fonction lorsque le DOM est entièrement chargé
+        document.addEventListener('DOMContentLoaded', scrollToLastResponse);
+    </script>
+</head>
+<body>
+    <h1>{% trans "Welcome to the Chatbot" %}</h1>
+
+    <ul class="chat-history">
+        {% for entry in chat_history %}
+            <li class="chat-message {% if entry.role == 'user' %}user-message{% else %}bot-message{% endif %} {% if forloop.last %}last-response{% endif %}">
+                <div class="message-content">
+                    {% if entry.role == 'user' %}
+                        <strong>Question:</strong> {{ entry.question }}
+                    {% else %}
+                        <strong>Réponse:</strong> {{ entry.response }}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="question"></label>
+        <input type="text" id="question" placeholder="{% trans 'Send a message to the Chatbot' %}" name="question">
+        <button type="submit">{% trans "Send" %}</button>
+        <button type="submit" name="clear_history" value="true">{% trans "Clear the history" %}</button>
+    </form>
+</body>
+</html>
