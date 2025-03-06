@@ -1,5 +1,5 @@
 ## Marchine Learning app
-une web app de machine learning utilisant l'api de openai pour repondre aux questions de l'utilisateur, le tout en utilisant l'api publique de open ai et le modèle de donnée gpt3 alimentant l'app web.
+une web app de machine learning utilisant l'api de openai  en utilisant l'api publique de open ai et le modèle de donnée gpt3 alimentant l'app web.
 
 ## Description
 - Ce projet est une application web multilingue construite avec Django. Il permet aux utilisateurs de changer de langue pour l'interface. Le projet montre comment implémenter l'internationalisation (i18n) et la localisation (l10n) dans une application Django.
